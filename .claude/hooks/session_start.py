@@ -172,6 +172,25 @@ def inject_recent_memories():
     print("\n".join(lines))
 
 
+def inject_build_process():
+    """Inject the canonical PYONAIR build process at every session start.
+    Jord directive 2026-10-13: the process LOADS before any new build — actual content, not a pointer.
+    Fails safe: an absent doc prints a one-line marker and never raises."""
+    doc = Path(PROJECT_DIR) / ".claude" / "PYONAIR-BUILD-PROCESS-CANONICAL.md"
+    try:
+        content = doc.read_text(errors="replace")
+    except OSError:
+        print("[PYONAIR BUILD PROCESS] canonical doc missing at .claude/PYONAIR-BUILD-PROCESS-CANONICAL.md — grounding incomplete")
+        return
+    print("")
+    print("=" * 70)
+    print("[PYONAIR BUILD PROCESS — follow before ANY new build (Jord directive 2026-10-13)]")
+    print("=" * 70)
+    print(content)
+    print("=" * 70)
+    print("")
+
+
 def main():
     # Read hook input from stdin
     try:
@@ -204,6 +223,9 @@ def main():
 
     # MEMORY INJECTION: Recent agent learnings and handoffs
     inject_recent_memories()
+
+    # BUILD PROCESS INJECTION: canonical gate chain loads every session (Jord directive 2026-10-13)
+    inject_build_process()
 
     # COMPACT RECOVERY: Inject CEO identity inline + BOOP resume after context compaction
     # This is CRITICAL - without this, Primary loses identity and BOOP work mode after auto-compact

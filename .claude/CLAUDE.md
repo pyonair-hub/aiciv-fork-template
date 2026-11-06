@@ -711,3 +711,7 @@ This constitution may only be modified with:
 
 *For operational procedures: Read CLAUDE-OPS.md*
 *For agent delegation: Read CLAUDE-AGENTS.md*
+
+## 🚦 BUILD PROCESS GATE (mandatory before ANY new build — Jord directive 2026-10-13)
+
+Before building anything new, follow the canonical process at **`.claude/PYONAIR-BUILD-PROCESS-CANONICAL.md`** — it is injected in full at every session start (see `session_start.py` -> `inject_build_process`). It gates stage-3 design-doc-before-code (HARD gate), stage-1 research cite-or-cut, stage-7 triple-check definition-of-done, stage-8 client-facing scrub + claim-integrity + verify-link-and-send, plus the dual-brand standard and high-risk-output routing. No new build ships without it.
